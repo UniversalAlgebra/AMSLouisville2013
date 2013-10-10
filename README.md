@@ -19,7 +19,7 @@ Organizers:
 Saturday October 5, 2013
 ------------------------
 1.  8:00 a.m. *Permutability of abelian congruences in finitely decidable varieties.* 
-    **Matthew Smedberg**, Vanderbilt University 
+**Matthew Smedberg**, Vanderbilt University 
 
 2.  8:30 a.m. *Residually finite varieties.* 
     **Keith A Kearnes**, University of Colorado
