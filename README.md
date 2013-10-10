@@ -88,7 +88,7 @@ Sunday October 6, 2013
 
     **John W. Snow**,  Concordia University, Nebraska 
 
-    **Kalle Kaarli,  University of Tartu, Estonia
+    **Kalle Kaarli**,  University of Tartu, Estonia
 
 10. 8:30 a.m. *Maltsev Conditions on the Feder-Vardi Reduction to Bipartite Graphs with Constants.* 
 
