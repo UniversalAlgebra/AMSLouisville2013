@@ -5,11 +5,15 @@ This repository contains talks presented at the AMS Special Session on Finite Un
 
 Program
 =======
-    Special Session on Finite Universal Algebra, II
-    Room 215, Bingham Humanities
-    Organizers: 
-        **Ralph McKenzie**,  Vanderbilt University
-        **Matthew Valeriote**,  McMaster University
+Special Session on Finite Universal Algebra, II
+
+Room 215, Bingham Humanities
+
+Organizers: 
+
+**Ralph McKenzie**,  Vanderbilt University
+
+**Matthew Valeriote**,  McMaster University
 
 
 Saturday October 5, 2013
@@ -21,8 +25,11 @@ Saturday October 5, 2013
     **Keith A Kearnes**, University of Colorado
 
 3.  9:00 a.m. *Varieties with a difference term and Park's conjecture.* 
+
     **Keith Kearnes**, University of Colorado
+
     **Agnes Szendrei**, University of Colorado
+
     **Ross Willard**, University of Waterloo
 
 4.  9:30 a.m. *How to decide absorption.* 
