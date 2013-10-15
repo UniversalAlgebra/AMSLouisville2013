@@ -2,6 +2,7 @@ AMSLouisville2013
 =================
 This repository contains talks presented at the AMS Special Session on Finite Universal Algebra at the AMS Southeastern Sectional Meeting, October 5--6, 2013, at University of Louisville.
 
+If you don't use Git, you might prefer the webpages [here](http://universalalgebra.github.io/AMSLouisville2013/) or [here](http://universalalgebra.wordpress.com/meetings/ams-special-session-on-finite-universal-algebra/).
 
 Program
 =======
