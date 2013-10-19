@@ -1,0 +1,590 @@
+
+\documentclass[notes=show]{beamer}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\usepackage{amssymb}
+\usepackage{amsmath}
+\usepackage{mathpazo}
+\usepackage{hyperref}
+\usepackage{multimedia}
+
+\setcounter{MaxMatrixCols}{10}
+%TCIDATA{OutputFilter=LATEX.DLL}
+%TCIDATA{Version=5.50.0.2953}
+%TCIDATA{<META NAME="SaveForMode" CONTENT="1">}
+%TCIDATA{BibliographyScheme=Manual}
+%TCIDATA{Created=Wednesday, February 02, 2011 22:34:19}
+%TCIDATA{LastRevised=Tuesday, October 15, 2013 19:43:14}
+%TCIDATA{<META NAME="GraphicsSave" CONTENT="32">}
+%TCIDATA{<META NAME="DocumentShell" CONTENT="Other Documents\SW\Slides - Beamer">}
+%TCIDATA{Language=American English}
+%TCIDATA{CSTFile=beamer.cst}
+
+\newenvironment{stepenumerate}{\begin{enumerate}[<+->]}{\end{enumerate}}
+\newenvironment{stepitemize}{\begin{itemize}[<+->]}{\end{itemize} }
+\newenvironment{stepenumeratewithalert}{\begin{enumerate}[<+-| alert@+>]}{\end{enumerate}}
+\newenvironment{stepitemizewithalert}{\begin{itemize}[<+-| alert@+>]}{\end{itemize} }
+\usetheme{Madrid}
+\input{tcilatex}
+\begin{document}
+
+\title[Epis of posemigroup]{{\Large Epimorphisms in certain varieties of
+partially ordered semigroups}}
+\subtitle{{\small AMS fall southeastern sectional meeting 5--6 October 2013,
+Louisville, USA}}
+\author{Sohail Nasir}
+\institute[Tartu - Waterloo]{Institute of Mathematics, University of Tartu, Estonia\\
+Department of Pure Mathematics, University of Waterloo, Canada}
+\date{06 October 2013}
+\maketitle
+
+%TCIMACRO{\TeXButton{BeginFrame}{\begin{frame}}}%
+%BeginExpansion
+\begin{frame}%
+%EndExpansion
+
+\QTR{frametitle}{Motivation}
+
+\begin{stepitemize}
+\item Let $U$ be a subsemigroup of a semigroup $S$. Then $d\in S$ is said to
+be in the \textit{dominion} of $U$ if for every pair of semigroup
+homomorphisms $f,g:S\longrightarrow T$ with $f\left\vert _{U}\right.
+=g\left\vert _{U}\right. $ we have $f(d)=g(d)$.\bigskip
+
+\item The set of all such elements of $S$ is called the dominion of $U$ is $%
+S $, denoted by $dom_{S}(U)$. This is a subsemigroup of $S$.\bigskip
+
+\item Clearly $U\subseteq dom_{S}(U)$.\bigskip
+
+\item $U$ is said to be \textit{closed} in $S$ if $dom_{S}(U)=U$. We term $U$
+\textit{absolutely closed} if it is closed in all of its semigroup
+extensions.
+\end{stepitemize}
+
+%TCIMACRO{\TeXButton{Transition: Box Out}{\transboxout}}%
+%BeginExpansion
+\transboxout%
+%EndExpansion
+%TCIMACRO{\TeXButton{EndFrame}{\end{frame}}}%
+%BeginExpansion
+\end{frame}%
+%EndExpansion
+
+%TCIMACRO{\TeXButton{BeginFrame}{\begin{frame}}}%
+%BeginExpansion
+\begin{frame}%
+%EndExpansion
+
+\QTR{frametitle}{Motivation}
+
+\begin{stepitemize}
+\item Dominions are related with epimorphisms; in that $f:S\longrightarrow T$
+is an epimorphism iff $dom_{T}(\func{Im}f)=T$.\bigskip
+
+\item Consequently, a variety of semigroups is absolutely closed iff its
+epimorphisms are surjective.
+\end{stepitemize}
+
+\begin{equation*}
+\end{equation*}
+
+%TCIMACRO{\TeXButton{Transition: Box Out}{\transboxout}}%
+%BeginExpansion
+\transboxout%
+%EndExpansion
+%TCIMACRO{\TeXButton{EndFrame}{\end{frame}}}%
+%BeginExpansion
+\end{frame}%
+%EndExpansion
+
+%TCIMACRO{\TeXButton{BeginFrame}{\begin{frame}}}%
+%BeginExpansion
+\begin{frame}%
+%EndExpansion
+
+\QTR{frametitle}{Motivation}
+
+In 1966 J.R. Isbell proved the following theorem.
+
+\begin{theorem}
+$d\in dom_{S}(U)$ iff there exists a system of equalities (called a zigzag)%
+\begin{equation*}
+\begin{tabular}{lll}
+$d=s_{1}u_{1}$ &  & $u_{1}=v_{1}t_{1}$ \\ 
+$s_{1}v_{1}=s_{2}u_{2}$ &  & $u_{2}t_{1}=v_{2}t_{2}$ \\ 
+$\vdots $ &  & $\vdots $ \\ 
+$s_{n-1}v_{n-1}=u_{n}$ &  & $u_{n}t_{n-1}=d$%
+\end{tabular}%
+\end{equation*}%
+with $s_{1},\ldots ,s_{n-1};t_{1},\ldots ,t_{n-1}\in S$, $u_{1},\ldots
+,u_{n};v_{1},\ldots ,v_{n-1}\in U$.
+\end{theorem}
+
+\begin{equation*}
+\end{equation*}
+
+%TCIMACRO{\TeXButton{Transition: Box Out}{\transboxout}}%
+%BeginExpansion
+\transboxout%
+%EndExpansion
+%TCIMACRO{\TeXButton{EndFrame}{\end{frame}}}%
+%BeginExpansion
+\end{frame}%
+%EndExpansion
+
+%TCIMACRO{\TeXButton{BeginFrame}{\begin{frame}}}%
+%BeginExpansion
+\begin{frame}%
+%EndExpansion
+
+\QTR{frametitle}{Motivation}
+
+The aim of this talk is\bigskip
+
+\begin{stepenumerate}
+\item to present an analogous zigzag theorem for partially ordered
+semigroups, briefly posemigroups and\bigskip
+
+\item discuss closure properties and epimorphisms in certain varieties of
+posemigroups.
+\end{stepenumerate}
+
+\begin{equation*}
+\end{equation*}
+
+%TCIMACRO{\TeXButton{Transition: Box Out}{\transboxout}}%
+%BeginExpansion
+\transboxout%
+%EndExpansion
+%TCIMACRO{\TeXButton{EndFrame}{\end{frame}}}%
+%BeginExpansion
+\end{frame}%
+%EndExpansion
+
+%TCIMACRO{\TeXButton{BeginFrame}{\begin{frame}}}%
+%BeginExpansion
+\begin{frame}%
+%EndExpansion
+
+\QTR{frametitle}{Definitions}
+
+\begin{stepitemize}
+\item A partially ordered semigroup, briefly \textit{posemigroup}, is a pair 
+$(S,\leq )$ comprising a semigroup $S$ and a partial order $\leq $ (on $S$)
+that is \textit{compatible} with the binary operation, i.e. for all $%
+s_{1},s_{2},t_{1},t_{2}\in S$,%
+\begin{equation*}
+(s_{1}\leq t_{1},s_{2}\leq t_{2})\Longrightarrow s_{1}s_{2}\leq t_{1}t_{2}.
+\end{equation*}%
+\smallskip
+
+\item A posemigroup \textit{homomorphism} $f:(S,\leq _{S})\longrightarrow
+(T,\leq _{T})$ is a monotone semigroup homomorphism.
+\end{stepitemize}
+
+%TCIMACRO{\TeXButton{Transition: Box Out}{\transboxout}}%
+%BeginExpansion
+\transboxout%
+%EndExpansion
+%TCIMACRO{\TeXButton{EndFrame}{\end{frame}}}%
+%BeginExpansion
+\end{frame}%
+%EndExpansion
+
+%TCIMACRO{\TeXButton{BeginFrame}{\begin{frame}}}%
+%BeginExpansion
+\begin{frame}%
+%EndExpansion
+
+\QTR{frametitle}{Definitions}
+
+\begin{stepitemize}
+\item Let $(U,\leq _{U})$ be a subposemigroup of a posemigroup $(S,\leq
+_{S}) $. Then the subposemigroup%
+\begin{equation*}
+\{x\in S:\alpha ,\beta :(S,{\small \leq }_{S})\rightarrow (T,{\small \leq }%
+_{T})\text{, }\alpha \left\vert _{U}\right. =\beta \left\vert _{U}\right.
+\Longrightarrow \alpha (x)=\beta (x)\}\text{ \ \ \ \ \ }
+\end{equation*}%
+is called the \textit{dominion} of $(U,\leq _{U})$ in $(S,\leq _{S})$, where 
+$\alpha $ and $\beta $ are posemigroup homomorphisms.\bigskip
+
+\item We shall denote this set by $\widehat{dom}_{S}(U)$.
+\end{stepitemize}
+
+%TCIMACRO{\TeXButton{Transition: Box Out}{\transboxout}}%
+%BeginExpansion
+\transboxout%
+%EndExpansion
+%TCIMACRO{\TeXButton{EndFrame}{\end{frame}}}%
+%BeginExpansion
+\end{frame}%
+%EndExpansion
+
+%TCIMACRO{\TeXButton{BeginFrame}{\begin{frame}}}%
+%BeginExpansion
+\begin{frame}%
+%EndExpansion
+
+\QTR{frametitle}{Definitions}
+
+\begin{stepitemize}
+\item A subposemigroup $(U,\leq _{U})$ of a posemigroup $(S,\leq _{S})$ will
+be termed closed if $\widehat{dom}_{S}(U)=U$.\bigskip
+
+\item $(U,\leq _{U})$ will be called absolutely closed if it is closed in
+all of its posemigroup extensions.
+\end{stepitemize}
+
+\begin{equation*}
+\end{equation*}
+
+%TCIMACRO{\TeXButton{Transition: Box Out}{\transboxout}}%
+%BeginExpansion
+\transboxout%
+%EndExpansion
+%TCIMACRO{\TeXButton{EndFrame}{\end{frame}}}%
+%BeginExpansion
+\end{frame}%
+%EndExpansion
+
+%TCIMACRO{\TeXButton{BeginFrame}{\begin{frame}}}%
+%BeginExpansion
+\begin{frame}%
+%EndExpansion
+
+\QTR{frametitle}{Zigzag theorem for posemigroups}
+
+\begin{theorem}
+\label{Zigzag theorem for posemigroups}$d\in \widehat{dom}_{S}(U)$ if and
+only if there exists a system of inequalities%
+\begin{equation*}
+\begin{tabular}{lll}
+$d\leq s_{1}u_{1}$ &  & $u_{1}\leq v_{1}t_{1}$ \\ 
+$s_{1}v_{1}\leq s_{2}u_{2}$ &  & $u_{2}t_{1}\leq v_{2}t_{2}$ \\ 
+$\vdots $ &  & $\vdots $ \\ 
+$s_{n-1}v_{n-1}\leq u_{n}$ &  & $u_{n}t_{n-1}\leq d$ \\ 
+$v_{n}\leq s_{n+1}u_{n+1}$ &  & $d\leq v_{n}t_{n+1}$ \\ 
+$s_{n+1}v_{n+1}\leq s_{n+2}u_{n+2}$ &  & $u_{n+1}t_{n+1}\leq v_{n+1}t_{n+2}$
+\\ 
+$\vdots $ &  & $\vdots $ \\ 
+$s_{n+m}v_{n+m}\leq d$ &  & $u_{n+m}t_{n+m}\leq v_{n+m}$%
+\end{tabular}%
+\end{equation*}%
+where $s_{i},t_{i}\in S$ and $u_{i},v_{i}\in U$.
+\end{theorem}
+
+%TCIMACRO{\TeXButton{Transition: Box Out}{\transboxout}}%
+%BeginExpansion
+\transboxout%
+%EndExpansion
+%TCIMACRO{\TeXButton{EndFrame}{\end{frame}}}%
+%BeginExpansion
+\end{frame}%
+%EndExpansion
+
+%TCIMACRO{\TeXButton{BeginFrame}{\begin{frame}}}%
+%BeginExpansion
+\begin{frame}%
+%EndExpansion
+
+\QTR{frametitle}{Remarks}
+
+\begin{stepitemize}
+\item We can also treat a posemigroup $(S,\leq )$ as a semigroup by
+disregarding the order. We shall then denote it simply by $S$.\bigskip
+
+\item So, given a subposemigroup $(U,\leq _{U})$ of a posemigroup $(S,\leq
+_{S})$, one may also consider the (algebraic) dominion $dom_{S}(U)$%
+{\normalsize \ }of $U$ in $S$.\bigskip
+
+\item Because every equality in Isbell's zigzag can be treated as an
+inequality, one can easily write from a `zigzag of equalities' a `zigzag of
+inequalities'. We therefore have%
+\begin{equation*}
+d\in dom_{S}(U)\Longrightarrow d\in \widehat{dom}_{S}(U).
+\end{equation*}%
+\smallskip 
+
+\item More precisely: $\ \ U\subseteq dom_{S}(U)\subseteq \widehat{dom}%
+_{S}(U)\subseteq S$.\bigskip 
+\end{stepitemize}
+
+\begin{stepitemizewithalert}
+\item So the closure of $(U,\leq _{U})$ in $(S,\leq _{S})$ implies the
+closure of $U$ in $S$.
+\end{stepitemizewithalert}
+
+%TCIMACRO{\TeXButton{Transition: Box Out}{\transboxout}}%
+%BeginExpansion
+\transboxout%
+%EndExpansion
+%TCIMACRO{\TeXButton{EndFrame}{\end{frame}}}%
+%BeginExpansion
+\end{frame}%
+%EndExpansion
+
+%TCIMACRO{\TeXButton{BeginFrame}{\begin{frame}}}%
+%BeginExpansion
+\begin{frame}%
+%EndExpansion
+
+\QTR{frametitle}{The closure properties}
+
+The following result tells that the converse of the above statement is also
+true.\bigskip
+
+\begin{stepitemize}
+\item \textbf{Proposition} A subposemigroup $(U,\leq _{U})$ is closed in a
+posemigroup $(S,\leq _{S})$ if and only if $U$ is such in $S$ as a
+semigroup.\bigskip
+\end{stepitemize}
+
+\begin{stepitemizewithalert}
+\item \textbf{Corollary} A posemigroup $(U,\leq )$ is absolutely closed if
+and only if it is such as a semigroup within the class of semigroups that
+qualify as posemigroup extensions of $(U,\leq )$, for certain compatible
+partial orders.
+\end{stepitemizewithalert}
+
+%TCIMACRO{\TeXButton{Transition: Box Out}{\transboxout}}%
+%BeginExpansion
+\transboxout%
+%EndExpansion
+%TCIMACRO{\TeXButton{EndFrame}{\end{frame}}}%
+%BeginExpansion
+\end{frame}%
+%EndExpansion
+
+%TCIMACRO{\TeXButton{BeginFrame}{\begin{frame}}}%
+%BeginExpansion
+\begin{frame}%
+%EndExpansion
+
+\QTR{frametitle}{Absolutely closed varieties (\textbf{unordered context})}
+
+Recall that a semigroup $S$ is called a right group if every equation $ax=b$
+with $a,b\in S$ has a unique solution in $S$.\bigskip
+
+Left groups are defined similarly\bigskip
+
+\begin{theorem}[Higgins]
+The absolutely closed varieties of semigroups are exactly the varieties
+consisting entirely of semilattices of groups, or entirely of right groups
+or entirely of left groups.
+\end{theorem}
+
+%TCIMACRO{\TeXButton{Transition: Box Out}{\transboxout}}%
+%BeginExpansion
+\transboxout%
+%EndExpansion
+%TCIMACRO{\TeXButton{EndFrame}{\end{frame}}}%
+%BeginExpansion
+\end{frame}%
+%EndExpansion
+
+%TCIMACRO{\TeXButton{BeginFrame}{\begin{frame}}}%
+%BeginExpansion
+\begin{frame}%
+%EndExpansion
+
+\QTR{frametitle}{Definition}
+
+\begin{stepitemize}
+\item A class of posemigroups is called a \textit{variety }(of posemigroups)
+if it is closed under taking products (endowed with componentwise order),
+homomorphic images (where of course we are only considering the monotone
+semigroup homomorphisms) and subposemigroups.\bigskip
+
+\item It is also possible to describe posemigroup varieties alternatively
+with the help of inequalities using a Birkhoff type
+characterization.\bigskip 
+
+\item \textbf{Example} The class of all bounded posemigroups is a variety of
+posemigroups defined by $\{(xy)z=x(yz)\}\cup \{x\leq a$ ($b\leq x$)$\}$.
+Also, if $\mathcal{V}$ is a class of posemigroups that forms a variety of
+semigroups (if the orders are disregarded), then the subclass $\mathcal{V}%
+^{\prime }$ of all bounded posemigroups in $\mathcal{V}$ is a variety of
+posemigroups defined by the identities of $\mathcal{V}$ and the
+inequality(s) $x\leq a$ ($b\leq x$), provided $\mathcal{V}^{\prime }$ is
+non-empty.
+\end{stepitemize}
+
+%TCIMACRO{\TeXButton{Transition: Box Out}{\transboxout}}%
+%BeginExpansion
+\transboxout%
+%EndExpansion
+%TCIMACRO{\TeXButton{EndFrame}{\end{frame}}}%
+%BeginExpansion
+\end{frame}%
+%EndExpansion
+
+%TCIMACRO{\TeXButton{BeginFrame}{\begin{frame}}}%
+%BeginExpansion
+\begin{frame}%
+%EndExpansion
+
+\QTR{frametitle}{Absolutely closed varieties (\textbf{ordered context})}
+
+From the above corollary, viz,
+
+\begin{stepitemizewithalert}
+\item \textbf{Corollary} A posemigroup $(U,\leq )$ is absolutely closed if
+and only if it is such as a semigroup within the class of semigroups that
+qualify as posemigroup extensions of $(U,\leq )$, for certain compatible
+partial orders,
+\end{stepitemizewithalert}
+
+\qquad and Higgins' theorem we obtian the following result.\bigskip
+
+\begin{stepitemize}
+\item \textbf{Corollary} Any variety $\mathcal{V}$ of posemigroups obtained
+by endowing a subclass of a class of semigroups of Higgins' theorem with
+compatible orders will be absolutely closed (in order theoretic sense).
+\end{stepitemize}
+
+%TCIMACRO{\TeXButton{Transition: Box Out}{\transboxout}}%
+%BeginExpansion
+\transboxout%
+%EndExpansion
+%TCIMACRO{\TeXButton{EndFrame}{\end{frame}}}%
+%BeginExpansion
+\end{frame}%
+%EndExpansion
+
+%TCIMACRO{\TeXButton{BeginFrame}{\begin{frame}}}%
+%BeginExpansion
+\begin{frame}%
+%EndExpansion
+
+\QTR{frametitle}{Absolutely closed varieties (\textbf{ordered context})}
+
+\begin{stepitemize}
+\item \textbf{Example} The class of all semilattices with natural orders
+forms an absolutely closed variety of posemigroups. The assertion also
+remains true if we substitute all the orders by their duals.\bigskip 
+
+\item \textbf{Example} The classes of bounded posemigroups that are right
+groups or left groups or semilattices of groups are absolutely closed (in
+ordered context).\bigskip 
+
+\item \textbf{Question }Are there any (order theoretic) varieties of
+absolutely closed posemigroups other then those of the above corollary?
+Especially are there any order theoretic varieties `bigger' than those of
+Higgins'.
+\end{stepitemize}
+
+%TCIMACRO{\TeXButton{Transition: Box Out}{\transboxout}}%
+%BeginExpansion
+\transboxout%
+%EndExpansion
+%TCIMACRO{\TeXButton{EndFrame}{\end{frame}}}%
+%BeginExpansion
+\end{frame}%
+%EndExpansion
+
+%TCIMACRO{\TeXButton{BeginFrame}{\begin{frame}}}%
+%BeginExpansion
+\begin{frame}%
+%EndExpansion
+
+\QTR{frametitle}{Epimorphisms of posemigroups}
+
+\begin{stepitemize}
+\item A posemigroup homomorphism $f:(S,\leq _{S})\longrightarrow (T,\leq
+_{T})$ is termed an \textit{epimorphism} if it is right cancellative in the
+usual sense of category theory, i.e. for any pair of posemigroup
+homomorphisms $g,h:T\longrightarrow W$, $g\circ f=h\circ f\Longrightarrow
+g=h $.\bigskip
+
+\item And of course for posemigroups also, $f:(S,\leq _{S})\longrightarrow
+(T,\leq _{T})$ is an\smallskip
+
+epimorphism iff $\widehat{dom}_{T}(\func{Im}f)=(T,\leq _{T})$.
+\end{stepitemize}
+
+%TCIMACRO{\TeXButton{Transition: Box Out}{\transboxout}}%
+%BeginExpansion
+\transboxout%
+%EndExpansion
+%TCIMACRO{\TeXButton{EndFrame}{\end{frame}}}%
+%BeginExpansion
+\end{frame}%
+%EndExpansion
+
+%TCIMACRO{\TeXButton{BeginFrame}{\begin{frame}}}%
+%BeginExpansion
+\begin{frame}%
+%EndExpansion
+
+\QTR{frametitle}{Epimorphisms of posemigroups}
+
+\begin{stepitemize}
+\item \textbf{Proposition} Let $\mathcal{V}$ be a variety of absolutely
+closed semigroups. Let $\mathcal{V}^{\prime }$ be the variety of
+posemigroups obtained by equipping members of $\mathcal{V}$ with all or some
+of their compatible orders. Then a posemigroup homomorphism $f$ is epi in $%
+\mathcal{V}$ iff it is such in $\mathcal{V}^{\prime }$.
+\end{stepitemize}
+
+%TCIMACRO{\TeXButton{Transition: Box Out}{\transboxout}}%
+%BeginExpansion
+\transboxout%
+%EndExpansion
+%TCIMACRO{\TeXButton{EndFrame}{\end{frame}}}%
+%BeginExpansion
+\end{frame}%
+%EndExpansion
+
+%TCIMACRO{\TeXButton{BeginFrame}{\begin{frame}}}%
+%BeginExpansion
+\begin{frame}%
+%EndExpansion
+
+\QTR{frametitle}{Epimorphisms of posemigroups}
+
+\textbf{Question} Given that $f:S\longrightarrow T$ is not epi in a class $%
+\mathcal{C}$ of semigroups (where $\mathcal{C}$ is different from the
+varieties of Higgins' theorem), how (and when) can we find $\leq _{S}$ and $%
+\leq _{T}$ so that $f:(S,\leq _{S})\longrightarrow (T,\leq _{T})$ is an
+epimorphism of posemigroups?
+
+%TCIMACRO{\TeXButton{Transition: Box Out}{\transboxout}}%
+%BeginExpansion
+\transboxout%
+%EndExpansion
+%TCIMACRO{\TeXButton{EndFrame}{\end{frame}}}%
+%BeginExpansion
+\end{frame}%
+%EndExpansion
+
+%TCIMACRO{\TeXButton{BeginFrame}{\begin{frame}}}%
+%BeginExpansion
+\begin{frame}%
+%EndExpansion
+
+\QTR{frametitle}{Acknowledgement and References}
+
+This talk was based on my recent work with Dr. Lauri Tart and on the
+following articles.\bigskip
+
+[1] Sohail Nasir: Zigzag theorem for partially ordered monoids. To appear in
+Comm. Algebra.\medskip
+
+[2] Sohail Nasir: Absolute closure for pomonoids. Submitted.\bigskip 
+
+I am also thankful to Professor Ross Willard for his valuable
+suggestions.\bigskip 
+\begin{equation*}
+\text{{\huge THANK YOU}}
+\end{equation*}
+
+%TCIMACRO{\TeXButton{Transition: Box Out}{\transboxout}}%
+%BeginExpansion
+\transboxout%
+%EndExpansion
+%TCIMACRO{\TeXButton{EndFrame}{\end{frame}}}%
+%BeginExpansion
+\end{frame}%
+%EndExpansion
+
+\end{document}

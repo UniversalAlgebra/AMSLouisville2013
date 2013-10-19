@@ -1,0 +1,257 @@
+\documentclass[handout]{beamer}
+\usepackage{amsmath, amsfonts,amsthm}
+\usepackage{graphicx}
+\usepackage{xcolor}
+%% \usepackage{wrapfig}
+\usetheme[hideothersubsections]{Marburg_mod}
+\usecolortheme{beaver_mod}
+\setbeamertemplate{theorems}[numbered]
+\setbeamertemplate{footline}{\insertframenumber} 
+
+%\setbeamertemplate[page number]{footline}
+%\setbeamertemplate{footline}{\hfill\insertframenumber/\inserttotalframenumber}
+
+\definecolor{BlueGreen}{cmyk}{0.85,0,0.33,0}
+\definecolor{lightgray}{RGB}{211,211,211}
+\definecolor{Slate}{RGB}{49,79,79}
+\definecolor{Ivory}{RGB}{238,238,224}
+
+\setbeamercolor{block title}{bg=Slate,fg=Ivory}%bg=background, fg= foreground
+\setbeamercolor{block body}{bg=Ivory,fg=black}%bg=background, fg= foreground
+
+\title[Finitely decidable varieties]{A multi-sorted construction in finitely decidable varieties}
+\author[M. Smedberg]{Matthew Smedberg}
+\institute[Vanderbilt]{Vanderbilt University \\ Department of Mathematics}
+\date{5 October 2013}
+
+\newcommand{\alg}[1]{\boldsymbol{#1}}
+\newcommand{\var}[1]{\mathcal{#1}}
+\newcommand{\Con}[1]{\mathrm{Con}(#1)}
+\newcommand{\HSP}[1]{\mathrm{HSP}(#1)}
+%% \newcommand{\HS}[1]{\mathrm{HS}(#1)}
+%% %\newcommand{\Cg}[3]{\mathrm{Cg}_{#1}(\langle #2,#3 \rangle)}
+%% %\newcommand{\typ}[2]{\mathrm{typ}(#1,#2)}
+\newcommand{\typset}[1]{\mathrm{typ} \{ #1 \} }
+%% \newcommand{\prectype}[1]{\stackrel{#1}{\prec}}
+%% \newcommand{\Pol}[2]{\mathsf{Pol}_{#1}(#2)}
+\newcommand{\Th}[1]{\mathrm{Th}(#1)}
+\newcommand{\Thfin}[1]{\mathrm{Th}_{\mathrm{fin}}(#1)}
+%% \newcommand{\Edge}{\stackrel{E}{\text{---}}}
+%% %\newcommand{\BAt}{\mathcal{BA}_2}
+%% \newcommand{\TC}[3]{\mathrm{C}(#1,#2;#3)}
+%% %\newcommand{\PolGrp}[2]{\Pi_{#2}^{#1}}
+%% %\newcommand{\TwinGrp}[2]{\mathrm{T}_{#2}^{#1}}
+%% %\newcommand{\Eset}[3]{\mathrm{E}^{#1}(#2,#3)}
+\newcommand{\Rad}[1]{\mathrm{Rad}(#1)}
+%% \newcommand{\SSRad}[1]{\mathrm{Rad}_u(#1)}
+%% \newcommand{\card}[1]{| #1 |}
+
+%% \newtheorem{MainThm}{Main Theorem}
+\newtheorem*{question}{Question}
+\newtheorem{thm}{Theorem}
+%% \newtheorem*{ex}{Example}
+%% \newtheorem*{defn}{Definition}
+\newtheorem{prob}{Open Problem}
+%% \newtheorem*{Fact}{Fact}
+%% \newtheorem*{prop}{Proposition}
+\newtheorem*{lem}{Lemma}
+%% %\newtheorem*{hardmethod}{Hard Method}
+%% %\newtheorem*{easymethod}{Easy Method}
+\newtheorem*{claim}{Claim}
+
+%\renewcommand{\theMainThm}{\Alph{MainThm}}
+
+\begin{document}
+
+\begin{frame}
+  \titlepage
+\end{frame}
+
+\begin{frame}{Decidability and Finite Decidability}
+  We say that that a variety \( \var{V} \) is said to be \emph{decidable} if \( \Th{\var{V}} \) is a computable set of sentences, and likewise \emph{finitely decidable} if \( \Thfin{\var{V}} = \Th{\var{V}_{\mathrm{fin}}}\) is a computable set.
+
+  \vspace{.5cm}
+  \uncover<2->{
+    Locally finite \emph{decidable} varieties were studied by McKenzie and Valeriote in the 80s; they showed that every such variety is a varietal product of
+    \begin{itemize}
+      \item a strongly abelian subvariety,
+      \item an affine subvariety, and
+      \item a discriminator subvariety.
+    \end{itemize}
+  }
+
+  \uncover<3->{
+    Since every finitely generated discriminator variety is decidable, and an explicit characterization exists for decidability in strongly abelian varieties (more on this in a moment), it only remained to determine which affine varieties are decidable.
+  }
+\end{frame}
+
+\begin{frame}
+  \begin{prob}\label{prob:FDmodules}
+    For which finite rings \( \alg{R} \) is the variety of all \( \alg{R} \)-modules decidable? Finitely decidable?
+  \end{prob}
+\end{frame}
+
+\section{Finitely decidable modular varieties}
+\begin{frame}{No decomposition for FD varieties}
+  In 1997, Idziak characterized locally finite FD varieties having modular congruence lattices (which, by TCT and a nice result of Valeriote and Willard, are exactly those varieties omitting type 1), up to Problem \ref{prob:FDmodules}.
+
+  \vspace{.5cm}
+  \uncover<2->{
+    Idziak's proof essentially gives a recipe for taking a FD variety \( \var{V} \) admitting only type 3, another FD variety \( \var{W} \) of modules, and producing a FD supervariety \( \var{V} \subset \var{V} \star \var{W} \) such that
+    \begin{itemize}
+      \item if \( \alg{A} \in \var{V} \star \var{W} \) omits type 2, then \( \alg{A} \in \var{V} \);
+      \item if \( \alg{A}/\Rad{\alg{A}} \) (which must lie in \( \var{V} \)) is subdirectly irreducible, every \( \Rad{\alg{A}} \)-block is a module from \( \var{W} \);
+      \item there exist algebras in \( \var{V} \star \var{W} \) whose congruence lattice is the ordered sum of a nontrivial solvable interval and a nontrivial chain of boolean type covers.
+    \end{itemize}
+  }
+\end{frame}
+
+\begin{frame}
+  Going in the reverse direction, Idziak gave sufficient conditions that guarantee, for modular variety \( \var{V} \) and \(\alg{A} \in \var{V} \), that 
+  \uncover<2->{the poset of meet-irreducible \( \tau \in \Con{\alg{A}} \) with boolean upper cover forms a tree \( \mathbb{T} \) with root \( \top_A \); }
+  \uncover<3->{that each \( \tau/[\tau,\tau] \)-block is a module over a ring uniformly definable from the variety; }
+  \uncover<4->{and that \( \alg{A} \) could be isomorphically recovered from the family
+\[ \left\langle \alg{A}/[\tau,\tau] \colon \tau \in \mathbb{T} \right \rangle  \]
+in a uniform way. It follows that deciding the theory of \( \var{V} \) is no harder than deciding \( \var{V}_3 \) and the theory of modules over the indicated ring.}
+\end{frame}
+
+\begin{frame}
+  \begin{question}
+    Can we do something similar in the case where a variety \( \var{V} \) omits type 2: that is, find a variety \( \var{W} \) of strongly abelian algebras such that we can associate blocks of strongly abelian congruences in \( \var{V} \) to algebras in \( \var{W} \) well enough to determine the structure of algebras in \( \var{V} \)?
+  \end{question}
+\end{frame}
+
+\section{Strongly Abelian varieties}
+\begin{frame}{Back to strongly abelian algebras}
+  \begin{lem}
+    Let \( \alg{A} \) be a finite, strongly abelian algebra, and let \(k\) be the largest number such that \(\alg{A} \) has an idempotent term operation \(t(x_1, \ldots, x_k) \) that depends on all its variables. Then we can find a term \(d(x_1, \ldots, x_k)\) and a decomposition
+    \[A = A_1 \times \cdots \times A_k\]
+    such that
+    \[d(a_1, \ldots, a_k) = 
+    d \begin{pmatrix} 
+      a_1^1 & a_2^1 & \cdots & a_k^1 \\
+      a_1^2 & a_2^2 & \cdots & a_k^2 \\
+      \vdots & \vdots & \ddots & \vdots \\
+      a_1^k & a_2^k & \cdots & a_k^k
+    \end{pmatrix} = \begin{matrix}
+      a_1^1 \\ a_2^2 \\ \vdots \\ a_k^k
+    \end{matrix}
+    \]
+  \end{lem}
+\end{frame}
+
+\begin{frame}
+  Suppose \(d(x_1, \ldots, x_k) \) acts as a decomposition term throughout the strongly abelian variety \( \var{V} \). Valeriote and McKenzie define a \(k\)-sorted companion variety \( \var{V}[d] \) by turning each \(n\)-ary fundamental operation of \( \var{V} \) into \(k\) operations of arity \(k \cdot n \).
+
+  \uncover<2->{
+  \begin{thm}\label{thm:SAkary}
+    \begin{itemize}
+      \item<2-> \( \var{V} \) is essentially \(k\)-ary iff \( \var{V}[d] \) is essentially unary.
+      \item<3-> If \( \var{V}[d] \) is not essentially unary, then \(\var{V}[d] \) and \( \var{V} \) are both undecidable and finitely undecidable.
+    \end{itemize}
+  \end{thm}
+  }
+\end{frame}
+
+\begin{frame}
+  \begin{question}
+    Can we do something similar in the case where we cannot decompose an algebra into a product of strongly abelian and totally nonabelian factors?
+  \end{question}
+\end{frame}
+
+\section{Unification}
+\begin{frame}{Unifying the constructions}
+  Let \( \alg{A} \) be a finite algebra in a variety \( \var{V} \) which satisfies all the known necessary conditions for finite decidability, and suppose \( \typset{\var{V}} = \{1,3\} \). Then
+  \uncover<2->{the meet-irreducible congruences \(\tau \in \Con{\alg{A}}\) with boolean upper cover are arranged in a tree \(\mathbb{T} \) with \( \top_A \) at the root; }
+  \uncover<3->{for each \( \tau \in \mathbb{T} \), the least \( \zeta\in \Con{\alg{A}}\) such that \(\tau\) is solvable over \( \zeta \) is in fact \( [\tau,\tau] \); }
+  \uncover<4->{and \(\alg{A} \) is a subdirect product of the \( \alg{A}/[\tau,\tau] \).}
+\end{frame}
+
+\begin{frame}
+  \begin{thm}[S.]
+    Replacing \( \alg{A} \) by one of the \( \alg{A}/[\tau,\tau] \), we know that \( \Rad{\alg{A}} \) is a strongly abelian congruence, and meet-irreducible with boolean monolith. Say \(\Rad{\alg{A}} \) has \(m\) blocks. For each block \(B_i\), let \( \alg{A}_i \) be the algebra induced on \(B_i\) by all \emph{terms} (not polynomials) which respect it. \( \alg{A}_i \) is a strongly abelian algebra, with \(k_i\)-ary decomposition term \( d_i \).
+
+    \vspace{.4cm}
+    Then if any term of \( \alg{A}_i \) depends on more than \(k_i \) variables, then \( \var{V} \) is hereditarily finitely undecidable.
+  \end{thm}
+\end{frame}
+
+\begin{frame}{Proof by construction}
+  To prove it, we define a multi-sorted first-order language \(L^\flat\). The sorts are
+  \[\left\{ \langle i,j \rangle \colon 1 \leq i \leq m, \; 1 \leq j \leq k_i \right\} \]
+  and for each basic operation \(f(x_1, \ldots, x_n)\) of \( \alg{A} \) and any blocks
+  \[ f:B_{i_1} \times \cdots \times B_{i_n} \rightarrow B_{i_0} \]
+  we include \(k_{i_0}\) basic operations
+  \[ f_{i_1, \ldots, i_n}^j
+  \begin{pmatrix}
+    \langle i_1,1 \rangle & \langle i_2,1 \rangle & \cdots & \langle i_n, 1 \rangle \\
+    \langle i_1,2 \rangle & \langle i_2,2 \rangle & \cdots & \langle i_n, 2 \rangle \\
+    \vdots & \vdots & \ddots & \vdots \\
+    \langle i_1,k_{i_1} \rangle & \langle i_2, k_{i_2} \rangle & \cdots & \langle i_n, k_{i_n} \rangle
+  \end{pmatrix} \rightarrow \langle i_0,j \rangle
+  \]
+\end{frame}
+
+\begin{frame}{Proof by construction}
+  Then if \(d_i\) decomposes \( B_i \) into \(B_{i,1} \times B_{i,2} \times \cdots \times B_{i,k_i} \), we define an \(L^\flat\)-structure \( \alg{A}^\flat \), interpreting sort \( \langle i,j \rangle \) by \(B_{i,j} \), and evaluating the functions in the only reasonable way.
+
+  \begin{lem}
+    \( \alg{A}^\flat \) is strongly abelian.
+  \end{lem}
+
+  (Recall that \( \alg{A} \) was not even abelian!)
+\end{frame}
+
+\begin{frame}{Proof by construction}
+  \begin{lem}Call \( \alg{C} \in \var{V} \) \emph{flattable} if this construction sends it to a sorted algebra \( \alg{C}^\flat \in \var{V}^\flat = \HSP{\alg{A}^\flat} \). Let \( \alg{C}, \alg{C}_1, \alg{C}_2 \) be flattable. Then
+    \begin{itemize}
+      \item<2-> \( \alg{C}^\flat \) is strongly abelian, and \( \alg{C} / \Rad{\alg{C}}\) is canonically isomorphic to \( \alg{A} / \Rad{\alg{A}} \). Call the canonical projection \( \pi_{\alg{C}} \).
+      \item<3-> Subalgebras of \( \alg{C}^\flat \) are precisely the flat images of subalgebras of \( \alg{C} \) which have nonempty intersection with every \( \Rad{\alg{C}} \)-block.
+      \item<4-> Homomorphic images of \( \alg{C}^\flat \) are precisely the flat images of homomorphic images of \( \alg{C} \) by solvable congruences.
+      \item<5-> The product \( \alg{C}_1^\flat \times \alg{C}_2^\flat \) is the flat image of
+        \[ \left\{ \begin{bmatrix}
+          x \\ y
+        \end{bmatrix} \colon \pi_{\alg{C}_1}(x) = \pi_{\alg{C}_2}(y)
+        \right\} \leq \alg{C}_1 \times \alg{C}_2
+        \]
+    \end{itemize}
+  \end{lem}
+\end{frame}
+
+\begin{frame}{Proof by construction}
+  The variety generated by \( \alg{A}^\flat \), in other words, interprets into \( \var{V} \). Notice that the trivial algebra in this variety is obtained by flatting \( \alg{A} / \Rad{\alg{A}} \).
+
+  \vspace{.5cm}
+  \uncover<2->{
+    All that remains is now to show that Valeriote's proof of Theorem \ref{thm:SAkary} goes through.
+  }
+
+  \vspace{.5cm}
+  \uncover<3->{
+    It does.
+  }
+\end{frame}
+
+\section{Further questions}
+\begin{frame}
+  ``When proving something is undecidable, use local structure. When proving something is decidable, you have to use global structure.''
+
+  \begin{flushright}
+    -- Pawel Idziak
+  \end{flushright}
+
+  \uncover<2->{
+    \begin{prob}
+      Are the algebras \( \alg{A}/[\tau,\tau] \) sufficiently regular to be manageable, while simultaneously encoding enough information to recover \( \alg{A} \) in some uniform, first-order way?
+    \end{prob}
+  }
+
+  \uncover<3->{
+    \begin{prob}
+      What about varieties that admit both type 1 and 2? Even in the abelian case, we're pretty much stumped so far.
+    \end{prob}
+  }
+\end{frame}
+
+
+\end{document}

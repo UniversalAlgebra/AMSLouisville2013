@@ -1,0 +1,1054 @@
+\documentclass{beamer}
+\usetheme{Berkeley}
+%\usepackage{graphics}
+\usepackage{amsmath,amsthm,latexsym,amssymb,verbatim}
+\usepackage[mathscr]{eucal}
+\usepackage{stmaryrd}
+\usepackage{graphicx}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\newcommand{\jn}{\vee}
+\newcommand{\m}{\wedge}
+\newcommand{\lz}{{\lozenge}}
+\newcommand{\G}{{\rm{\textbf{G}}}}
+\newcommand{\Bt}{{\rm{\textbf{B}}}}
+\newcommand{\A}{{\mathbf A}}
+\newcommand{\p}{\beta}
+\newcommand{\bbF}{\mathbb F}
+\newcommand{\bbM}{\mathbb M}
+\newcommand{\N}{\mathbb N}
+\newcommand{\T}{\mathscr T}
+\newcommand{\B}{\beta}
+\newcommand{\uc}{\uncover}
+
+\newcommand{\va}{\vec a}
+\newcommand{\vb}{\vec b}
+\newcommand{\vd}{\vec{d}}
+\newcommand{\vx}{\vec x}
+
+\newcommand{\fit}[1]{\operatorname{fit}{#1}}
+\newcommand{\Fit}[1]{\operatorname{Fit}{#1}}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\newtheoremstyle{T}{11pt}{11pt}{\slshape}{}{\bfseries}{}{0.75em}{}
+\newtheoremstyle{C}{11pt}{11pt}{\slshape}{}{\bfseries}{}{0.3em}{}
+\newtheoremstyle{E}{11pt}{11pt}{\upshape}{}{\bfseries}{}{0.75em}{}
+\newcommand{\citeskip}{\hspace*{0.75em}}
+
+
+
+
+
+
+
+\begin{document}
+\title {Algebraic Terms through Simulated \\Biological Evolution}
+\author[D.Clark et al.]{David~M. Clark\inst{1} \and Maarten Keijzer\inst{2} \and Lee Spector\inst{3}}
+\institute{
+    \inst{1}{Mathematics:
+             SUNY, New Paltz, NY, USA}\\
+    \inst{2}{Machine Learning:
+             Chordiant, Inc., Amsterdam, NDL}\\
+    \inst{3}{Cognitive Science:
+             Hampshire College, MA, USA}
+             }
+\date{October 6, 2013\\
+${}$\\
+ 
+$\langle$clarkd@newpaltz.edu$\rangle$
+}
+
+\begin{frame}
+\titlepage
+\end{frame}
+
+
+\begin{comment}
+\section[Outline]{Outline}
+
+\begin{frame}
+Outline:
+\pause
+\begin{enumerate}
+   \item sample term generation problem\pause
+   \item prior methods to solve term generation problems\pause
+   \item evolutionary computation\pause
+   \item main theorem:  conditions for EC to succeed\pause
+   \item sample solution
+\end{enumerate}
+\end{frame}
+\end{comment}
+
+
+
+\section[Sample Problem]{}
+
+
+\begin{frame}
+
+A finite non-trivial groupoid $\G$ is \textbf{idemprimal} if  every operation $h:G^k \to G$ that preserves the idempotents of $\G$ is a term operation.
+\pause   
+\medskip
+
+\centerline{$\Updownarrow$} 
+\bigskip
+
+
+ A finite non-trivial groupoid $\G$ is \textbf{idemprimal} if it has no non-trivial subalgebras, automorphisms or congruences and the ternary discriminator operation
+\[
+t(a,b,c) := 
+\begin{cases}
+   a  \mbox{ if } a=b\\
+   c  \mbox{ if } a\neq b
+\end{cases}
+\]
+is a term operation of $\G$.
+\end{frame}
+
+
+
+
+
+
+
+\begin{frame}
+
+\textbf{Mursk\i {\u \i}'s Theorem.} (1975)  {\sl The proportion of $n$-element groupoids $\G = \langle \{0,1,2,\dots,n-1\},*\rangle$ that are idemprimal approaches 1 as $n \to \infty$.}
+\pause
+\bigskip
+
+
+\textbf{Problem: } \\
+Is this groupoid idemprimal?
+\vspace{-10mm}
+
+\centerline{
+$\mathbf{Pi} := \langle\{0,1,2,3,4\}, *\rangle$ \qquad
+    \begin{tabular}{c|ccccc}
+    $*$ & 0 & 1 & 2 & 3 & 4 \\  \hline 
+     0  & 1 & 4 & 1 & 0 & 4  \\
+     1  & 2 & 1 & 0 & 3 & 0  \\
+     2  & 3 & 4 & 2 & 4 & 3  \\
+     3  & 2 & 3 & 3 & 4 & 1  \\
+     4  & 2 & 1 & 4 & 3 & 3
+    \end{tabular}
+}
+\pause
+
+\vspace{-.9cm}
+--  if and only if it has a \\
+discriminator term
+\pause
+\bigskip
+
+\textbf{Term Generation Problem: }  Given a finite groupoid $\G$ and an operation $h:G^k\to G$ that is a term operation of $\G$, find a term that represents~$h$.
+
+
+%$\mathbf{Pi}$ is idemprimal if and only if it has a discriminator term.
+\end{frame}
+
+
+
+
+
+
+
+
+
+\section[Prior Methods]{}
+
+\begin{frame}
+Let $\G = \langle\{0,1,2,3,4\},*\rangle$ be a 5-element idemprimal groupoid.
+Two prior methods might generate a discriminator term.
+\pause
+\begin{enumerate}
+   \item UACalc will tell us if $\G$ is primal and, if so, will quickly produce a set of small terms from which we can recursively generate a discriminator term. \\  \pause
+    BUT, the generated term will have $\approx 10^{10}$ variables(!)  \pause
+   \item UACalc will construct the free algebra $\mathbf{F}_3(\G)$ and find a near minimal length term for the discriminator. \\   \pause
+    BUT, if $\G$ has 2 idempotents, $\mathbf{F}_3(\G)$ will have $5^{123}$  elements. \pause 
+Checking $10^6$ terms per second, the expected time to find a discriminator term will be $\approx 10^{72}$ years(!!)
+ \end{enumerate}
+\end{frame}
+
+
+
+
+
+\section[Evolutionary Computation]{}
+
+\begin{frame}
+\textbf{Evolutionary computation} finds solutions to problems by simulating biological evolution. 
+\medskip
+\pause 
+
+The \textbf{fitness} of a term $t(\vx)$ to represent $h:G^k \to G$ is 
+\[
+\fit(t(\vx)) := |\{\vb \in G^k :  t(\vb) = h(\vb)\}|.
+\]
+\pause
+\vspace{-3mm}
+
+\textbf{The Bucket Algorithm. }  Evolves two finite, dynamically changing sets of terms:
+\pause
+\medskip
+
+$\mathbb M$, a set of \textbf{male terms}~$m(\vx)$;
+\medskip
+\pause
+
+$\mathbb F$, a set of \textbf{female terms}~$f(\vx,\lz)$, each containing a single occurrence of the new variable $\lz$ (the \textbf{lozenge}).
+\end{frame}
+
+
+
+
+
+
+\begin{frame}
+\begin{align*}
+ &&&&  m(\vx)  && + && f(\vx,\lz)&& \implies &&& f(\vx,m(\vx))&&\ &&\\ 
+ &&&& father    &&&&     mother &&                &&&  child &&  && &&
+&
+\end{align*}
+\pause
+
+The \textbf{fitness} of a male term $m(\vx)$ is 
+\[
+\Fit(m(\vx)) := Max\{\fit(f(\vx,m(\vx)) \mid f(\vx) \in \mathbb F\}.
+\]
+\pause
+
+The \textbf{fitness} of a female term $f(\vx, \lz)$ is 
+\[
+\Fit(f(\vx,\lz)) := Max\{\fit(f(\vx,m(\vx)) \mid m(\vx) \in \mathbb M\}. 
+\]
+
+\end{frame}
+
+
+
+
+\section{The Bucket Algorithm}
+
+\begin{frame}
+\centerline{\textbf{A Basic Bucket System}}
+\pause
+
+\begin{figure}[ht]
+\setlength{\unitlength}{1mm}
+
+\begin{picture}(120,48)
+\put(-9,3){   %IJAC
+
+% 2(n^k + 1) buckets
+\multiput(10,0)(40,0){2}{
+\put(20,28)
+{\put(-2,4){\line(1,1){2}}  \put(0,0){\line(0,1){6}} \put(0,0){\line(1,0){20}} \put(20,0){\line(0,1){6}}  } 
+
+\put(30,18){\circle*{.5}} \put(30,20){\circle*{.5}} \put(30,22){\circle*{.5}}
+
+\put(20,10)
+{\put(-2,4){\line(1,1){2}}  \put(0,0){\line(0,1){6}} \put(0,0){\line(1,0){20}} \put(20,0){\line(0,1){6}}  } 
+
+\put(20,0)
+{\put(-2,4){\line(1,1){2}}  \put(0,0){\line(0,1){6}} \put(0,0){\line(1,0){20}} \put(20,0){\line(0,1){6}}  } }
+
+
+% box
+\put(15,47){\line(1,0){90}}
+\put(36,40){$\bbM$}   \put(81,40){$\bbF$}
+\multiput(0,0)(0,40){2}{\put(15,-3){\line(1,0){90}}}  
+\multiput(0,0)(45,0){3}{\put(15,-3){\line(0,1){50}}}  
+
+
+% contents
+\put(32,2){$x_0x_2$}  \put(44,2){$x_3$}  \put(34,12){$(x_4x_1)x_3^2$}  \put(39,30){?}
+\put(75,2){$x_2(x_3\lz)$}  \put(80,12){$x_2\lz$}  \put(74,12){$\lz$}  \put(79,30){?}
+
+% labels
+\put(20,2){$\bbM_0$}   \put(20,12){$\bbM_1$}  \put(20,30){$\bbM_{n^k}$}
+\put(95,2){$\bbF_0$}   \put(95,12){$\bbF_1$}  \put(95,30){$\bbF_{n^k}$}
+ 
+}
+\end{picture}
+\end{figure}
+\end{frame}
+   
+   
+   
+   
+   
+   
+\begin{frame}
+\centerline{\textbf{Initialize buckets.}}
+\pause
+
+
+\begin{figure}[ht]
+\setlength{\unitlength}{1mm}
+
+\begin{picture}(120,48)
+\put(-9,3){   %IJAC
+
+% 2(n^k + 1) buckets
+\multiput(10,0)(40,0){2}{
+\put(20,28)
+{\put(-2,4){\line(1,1){2}}  \put(0,0){\line(0,1){6}} \put(0,0){\line(1,0){20}} \put(20,0){\line(0,1){6}}  } 
+
+\put(30,18){\circle*{.5}} \put(30,20){\circle*{.5}} \put(30,22){\circle*{.5}}
+
+\put(20,10)
+{\put(-2,4){\line(1,1){2}}  \put(0,0){\line(0,1){6}} \put(0,0){\line(1,0){20}} \put(20,0){\line(0,1){6}}  } 
+
+\put(20,0)
+{\put(-2,4){\line(1,1){2}}  \put(0,0){\line(0,1){6}} \put(0,0){\line(1,0){20}} \put(20,0){\line(0,1){6}}  } }
+
+
+% box
+\put(15,47){\line(1,0){90}}
+\put(36,40){$\bbM$}   \put(81,40){$\bbF$}
+\multiput(0,0)(0,40){2}{\put(15,-3){\line(1,0){90}}}  
+\multiput(0,0)(45,0){3}{\put(15,-3){\line(0,1){50}}}  
+
+
+% contents
+\put(32,2){$x_0x_2$}  \put(44,2){$x_3$}  
+\put(78,2){$\lz$}
+
+
+% labels
+\put(20,2){$\bbM_0$}   \put(20,12){$\bbM_1$}  \put(20,30){$\bbM_{n^k}$}
+\put(95,2){$\bbF_0$}   \put(95,12){$\bbF_1$}  \put(95,30){$\bbF_{n^k}$}
+ 
+}
+\end{picture}
+\end{figure}
+
+\end{frame}
+
+
+
+
+\begin{frame}
+\centerline{\textbf{Calculate fitness values.}}
+\pause
+
+\begin{figure}[ht]
+\setlength{\unitlength}{1mm}
+
+\begin{picture}(120,48)
+\put(-9,3){   %IJAC
+
+% 2(n^k + 1) buckets
+\multiput(10,0)(40,0){2}{
+\put(20,28)
+{\put(-2,4){\line(1,1){2}}  \put(0,0){\line(0,1){6}} \put(0,0){\line(1,0){20}} \put(20,0){\line(0,1){6}}  } 
+
+\put(30,18){\circle*{.5}} \put(30,20){\circle*{.5}} \put(30,22){\circle*{.5}}
+
+\put(20,10)
+{\put(-2,4){\line(1,1){2}}  \put(0,0){\line(0,1){6}} \put(0,0){\line(1,0){20}} \put(20,0){\line(0,1){6}}  } 
+
+\put(20,0)
+{\put(-2,4){\line(1,1){2}}  \put(0,0){\line(0,1){6}} \put(0,0){\line(1,0){20}} \put(20,0){\line(0,1){6}}  } }
+
+
+% box
+\put(15,47){\line(1,0){90}}
+\put(36,40){$\bbM$}   \put(81,40){$\bbF$}
+\multiput(0,0)(0,40){2}{\put(15,-3){\line(1,0){90}}}  
+\multiput(0,0)(45,0){3}{\put(15,-3){\line(0,1){50}}}  
+
+
+% contents
+\put(37,12){$x_0x_2$}  \put(39,2){$x_3$}  
+\put(79,12){$\lz$}
+
+% labels
+\put(20,2){$\bbM_0$}   \put(20,12){$\bbM_1$}  \put(20,30){$\bbM_{n^k}$}
+\put(95,2){$\bbF_0$}   \put(95,12){$\bbF_1$}  \put(95,30){$\bbF_{n^k}$}
+ 
+}
+\end{picture}
+\end{figure}
+
+\end{frame}
+
+
+
+
+
+\begin{frame}
+\centerline{\textbf{Review configuration sometime later.}}
+\pause
+
+\begin{figure}[ht]
+\setlength{\unitlength}{1mm}
+
+\begin{picture}(120,48)
+\put(-9,3){   %IJAC
+
+% 2(n^k + 1) buckets
+\multiput(10,0)(40,0){2}{
+\put(20,28)
+{\put(-2,4){\line(1,1){2}}  \put(0,0){\line(0,1){6}} \put(0,0){\line(1,0){20}} \put(20,0){\line(0,1){6}}  } 
+
+\put(30,18){\circle*{.5}} \put(30,20){\circle*{.5}} \put(30,22){\circle*{.5}}
+
+\put(20,10)
+{\put(-2,4){\line(1,1){2}}  \put(0,0){\line(0,1){6}} \put(0,0){\line(1,0){20}} \put(20,0){\line(0,1){6}}  } 
+
+\put(20,0)
+{\put(-2,4){\line(1,1){2}}  \put(0,0){\line(0,1){6}} \put(0,0){\line(1,0){20}} \put(20,0){\line(0,1){6}}  } }
+
+
+% box
+\put(15,47){\line(1,0){90}}
+\put(36,40){$\bbM$}   \put(81,40){$\bbF$}
+\multiput(0,0)(0,40){2}{\put(15,-3){\line(1,0){90}}}  
+\multiput(0,0)(45,0){3}{\put(15,-3){\line(0,1){50}}}  
+
+
+% contents
+\put(37,12){$x_0x_2$}  \put(34,2){$x_5, x_3, x_1$}  
+\put(75,12){$x_2(\lz x_4)$}
+
+% labels
+\put(20,2){$\bbM_0$}   \put(20,12){$\bbM_1$}  \put(20,30){$\bbM_{n^k}$}
+\put(95,2){$\bbF_0$}   \put(95,12){$\bbF_1$}  \put(95,30){$\bbF_{n^k}$}
+ 
+}
+\end{picture}
+\end{figure}
+
+\end{frame}
+
+
+
+
+
+\section{Validity and Idemprimality}
+
+\begin{frame}
+%\centerline
+
+Choose a new term, say $x_7$, and a female term, say $x_2(\lz x_4)$.  \pause
+\medskip
+
+Construct a new female term $x_2((x_7\lz)x_4)$ from $x_7$ and $x_2(\lz x_4)$.\pause
+\medskip
+ 
+We would add $x_2((x_7\lz)x_4)$ to $F_0$  with the goal of finding  $m(\vx)$ such that $x_2((x_7m(\vx))x_4)^\G = h$.
+\pause
+\medskip
+
+Is there such a term $m(\vx)$?  \pause  If so, then $x_2((x_7\lz)x_4)$ must be \textbf{valid} with respect to $h$ in the sense that
+\[
+(\forall \va\in G^k) (\exists b\in G) :  a_2((a_7b)a_4) = h(\va), 
+\]
+namely, $b = m(\va)$.  
+\medskip
+\pause 
+
+\textbf{Idemprimality Theorem. } {\it If\/ $\G$ is idemprimal, then there is a term $m(\vx)$ such that $f(\vx,m(\vx))^\G = h$ if and only if $f(\vx,\lz)$ is valid with respect to $h$.}   
+
+\end{frame}
+
+
+
+
+
+
+
+\begin{frame}
+\centerline{\textbf{If $x_2((x_7\lz)x_4)$ is valid, add her to $\bbF_0$.}}
+\pause
+
+\begin{figure}[ht]
+\setlength{\unitlength}{1mm}
+
+\begin{picture}(120,48)
+\put(-9,3){   %IJAC
+
+% 2(n^k + 1) buckets
+\multiput(10,0)(40,0){2}{
+\put(20,28)
+{\put(-2,4){\line(1,1){2}}  \put(0,0){\line(0,1){6}} \put(0,0){\line(1,0){20}} \put(20,0){\line(0,1){6}}  } 
+
+\put(30,18){\circle*{.5}} \put(30,20){\circle*{.5}} \put(30,22){\circle*{.5}}
+
+\put(20,10)
+{\put(-2,4){\line(1,1){2}}  \put(0,0){\line(0,1){6}} \put(0,0){\line(1,0){20}} \put(20,0){\line(0,1){6}}  } 
+
+\put(20,0)
+{\put(-2,4){\line(1,1){2}}  \put(0,0){\line(0,1){6}} \put(0,0){\line(1,0){20}} \put(20,0){\line(0,1){6}}  } }
+
+
+% box
+\put(15,47){\line(1,0){90}}
+\put(36,40){$\bbM$}   \put(81,40){$\bbF$}
+\multiput(0,0)(0,40){2}{\put(15,-3){\line(1,0){90}}}  
+\multiput(0,0)(45,0){3}{\put(15,-3){\line(0,1){50}}}  
+
+
+% contents
+\put(37,12){$x_0x_2$}  \put(34,2){$x_5, x_3, x_1$}  
+%\put(34,12){$(x_4x_1)x_3^2$}  \put(39,30){?}
+%\put(75,2){$x_2(x_3\lz)$}  \put(80,12){$x_2\lz$}  \put(74,12){$\lz$}  \put(79,30){?}
+\put(75,12){$x_2(\lz x_4)$}  
+\put(70.8,2){$x_2((x_1\lz)x_4)$}  %\put(66.5,2){?}  \put(91.5,2){?}
+ 
+% labels
+\put(20,2){$\bbM_0$}   \put(20,12){$\bbM_1$}  \put(20,30){$\bbM_{n^k}$}
+\put(95,2){$\bbF_0$}   \put(95,12){$\bbF_1$}  \put(95,30){$\bbF_{n^k}$}
+ 
+}
+\end{picture}
+\end{figure}
+
+\end{frame}
+
+
+
+
+\begin{comment}
+
+\begin{frame}
+\textbf{Then, recursively, start a new bucket system looking}
+
+\textbf{for a solution to $x_2((x_7\lz)x_4)$.}
+\pause
+
+\begin{figure}[ht]
+\setlength{\unitlength}{.5mm}
+
+\begin{picture}(120,48)
+\put(-25,-20){   %IJAC
+
+% 2(n^k + 1) buckets
+\multiput(10,0)(40,0){2}{
+\put(20,28)
+{\put(-2,4){\line(1,1){2}}  \put(0,0){\line(0,1){6}} \put(0,0){\line(1,0){20}} \put(20,0){\line(0,1){6}}  } 
+
+\put(30,18){\circle*{.5}} \put(30,20){\circle*{.5}} \put(30,22){\circle*{.5}}
+
+\put(20,10)
+{\put(-2,4){\line(1,1){2}}  \put(0,0){\line(0,1){6}} \put(0,0){\line(1,0){20}} \put(20,0){\line(0,1){6}}  } 
+
+\put(20,0)
+{\put(-2,4){\line(1,1){2}}  \put(0,0){\line(0,1){6}} \put(0,0){\line(1,0){20}} \put(20,0){\line(0,1){6}}  } }
+
+% box
+\put(15,47){\line(1,0){90}}
+\put(36,40){$\bbM$}   \put(81,40){$\bbF$}
+\multiput(0,0)(0,40){2}{\put(15,-3){\line(1,0){90}}}  
+\multiput(0,0)(45,0){3}{\put(15,-3){\line(0,1){50}}}  
+
+% labels
+\put(-2,0){
+\put(20,2){$\bbM_0$}   \put(20,12){$\bbM_1$}  \put(18,30){$\bbM_{n^k}$}
+\put(95,2){$\bbF_0$}   \put(95,12){$\bbF_1$}  \put(95,30){$\bbF_{n^k}$} 
+}
+
+\put(58,-15){$\lz$}
+}
+
+
+
+\put(90,20){   %IJAC
+\setlength{\unitlength}{.2mm}
+\tiny
+
+% 2(n^k + 1) buckets
+\multiput(17,0)(26,0){2}{
+\put(20,28)
+{\put(-2,4){\line(1,1){2}}  \put(0,0){\line(0,1){6}} \put(0,0){\line(1,0){20}} \put(20,0){\line(0,1){6}}  } 
+
+\put(30,18){\circle*{.5}} \put(30,20){\circle*{.5}} \put(30,22){\circle*{.5}}
+
+\put(20,10)
+{\put(-2,4){\line(1,1){2}}  \put(0,0){\line(0,1){6}} \put(0,0){\line(1,0){20}} \put(20,0){\line(0,1){6}}  } 
+
+\put(20,0)
+{\put(-2,4){\line(1,1){2}}  \put(0,0){\line(0,1){6}} \put(0,0){\line(1,0){20}} \put(20,0){\line(0,1){6}}  } }
+
+% box
+\put(15,47){\line(1,0){90}}
+\put(36,38){$\bbM$}   \put(81,38){$\bbF$}
+\multiput(0,0)(0,40){2}{\put(15,-3){\line(1,0){90}}}  
+\multiput(0,0)(45,0){3}{\put(15,-3){\line(0,1){50}}}  
+
+% labels
+\put(-2,0){
+\put(20,2){$\bbM_0$}   \put(20,12){$\bbM_1$}  \put(18,27){$\bbM_{n^k}$}
+\put(93,2){$\bbF_0$}   \put(92,12){$\bbF_1$}  \put(89,27){$\bbF_{n^k}$}
+ }
+ 
+ \normalsize
+ 
+ \put(14,-27){$x_2((x_7\lz)x_4)$}
+ }
+\end{picture}
+\end{figure}
+
+\end{frame}
+
+\end{comment}
+
+
+
+
+\section{Continuity}
+
+\begin{frame}
+
+
+\begin{align*}
+\lz \to x_0\lz &\to x_0(\lz x_3) \to x_0((\lz x_2^2)x_3)\\ 
+                      &\to x_0((((x_4x_1)\lz)x_2^2)x_3) \\
+                      &\to x_0((((x_4x_1)(\lz (x_5x_1^2)))x_2^2)x_3) \\
+                      &\to x_0((((x_4x_1)((\lz(x_2^2x_0^2))(x_5x_1^2)))x_2^2)x_3) \to \dots
+\end{align*}
+\pause
+
+ A finite groupoid $\G$ is \textbf{term continuous} if 
+ \begin{gather*}
+|\{f(\vx,m(\vx))^\G : m(\vx) \mbox{ a term}\}| \to 1\\
+   \mbox{ as the depth of $\lz$ in } f(\vx,\lz) \to \infty.
+ \end{gather*}
+\pause
+
+\textbf{Continuity Theorem. }  {\it A finite groupoid $\G$ is term continuous if it is asymptotically complete and has no subgroupoid with a separating relation.}  \pause  (IJAC, Vol. 23, No. 5 (2013) 1175-1205.)
+\medskip
+
+\end{frame}
+
+
+
+
+\begin{frame}
+\textbf{Conjecture 1. }  {\it Almost every finite groupoid is asymptotically complete.} 
+\pause
+\medskip
+
+\textbf{Conjecture 2. }  {\it Almost every finite groupoid has no subgroupoid with a separating relation.}
+\pause
+\medskip
+
+\textbf{Example. }  {\it Asked to find a discriminator term for the 5-element groupoid\/ $\mathbf{Pi}$, the Bucket Algorithm produced the following output.} \pause
+\medskip
+
+Length: \pause 793 variables ($ < 10^{10}$ variables)
+\pause
+
+Time: \pause 18 minutes ($ < 10^{72}$ years)
+\end{frame}
+
+
+
+
+\section{Example}
+
+\begin{frame}
+\tiny
+t(x,y,z) = \pause
+zxxyz*x**yy*xx**y*zx*yz**yx*y**xzx*y*z*x**yx*z**xxzx****zx*zx***z*z***y*zx*xyxy*****y**x***xx**zzzzx
+\vspace{-1mm}
+*z***xx**z**zzzxz*x*xxzzz**zxy***yz*y*xx*y*****xz***z*y*y**zx*xz****yx**z**zzzzz*y*zy***zz*xz****xx*
+\vspace{-1mm}
+*z**zzzxz*x*xxzzz**zxy***yz*yxz**zz*x***xx*y*****xz***z*y*y**zx*xz****xx**z**zzyy*z***z*y*y*zyx*z**x
+\vspace{-1mm}
+x*zz**y*x*x**yxx*y*xz***z*zzzx**x*z*yy**xxzx****x***zzzxxy*yx*xzz*xxx**y****y****xy*x*z*xz****xx**z*
+\vspace{-1mm}
+****yxxx*xx***yyz*zz****y***xz*x*xz*xy***x**zzyz**yz*x*x*y**xz**z***zyz*xxz***x***zx**zxx*xx*z*yy***
+\vspace{-1mm}
+**yz*y*x*y*yz***zzyx**yz*x*x*y**xz**z***xxyy****xx*z*zzzxz*xzyyy**z**z**y**yxzxxy****z***xz**z***xy*
+\vspace{-1mm}
+****yx*y*yz***zzzx**y****yy*y*z*zzxxx*xy***zx****xx*yx**x*x**yx**z***xx*****xx*xz**x*yxzy*zz*yx**yy
+\vspace{-1mm}
+*xz******xy*x**zzxxz*****yyx*yz**xy*z**z****x**xyxy***z*y*xzx*y*yx*z*xyxy***z*y***z*x*zxy**x*xz*xx**
+\vspace{-1mm}
+x**x****z*zy***yy*y*y*z*y**yz***yz*yxz*x**xz*x**y*z**z*y**zyxyy**xyzy***yz**xz*xyzy***yz***zyx**x*z
+\vspace{-1mm}
+yz**yx*zx*****x***z*y*y****yxyzzy*zz**z**xxzx*****xy*xx**x*x****xy***zyz*x*xxyx*xx*xzzx*xy**zz**y*y*
+\vspace{-1mm}
+y***z********zyx*y*z**yxxz*zxyy***z*yzz***yxz**zx*xz****zzz***zy*z*****x*zx*z****zzz*yx*y***zx*zx**z
+\vspace{-1mm}
+y*z**x*yy*zyyzyy*yy**x*******x*y**y**zzx*x**yyxz*xy***z*zyy*yy*x*x*y*xx**xxy***zz*xx**zy*x****x*xz*
+\vspace{-1mm}
+zx******x***zxzz**x**x*yy*y*xxxyx****zy**yzzy**x**zyxx*xy**yyz**y****x*zyx*y*z*xy*****xxxy***xz*z*y
+\vspace{-1mm}
+****yyzxy***zx*xz******xx*z*z*zz*y*yy*y*yz*x*y*y***y*zy*yzy******zxxzy***yyx***z*xy****yxz***z*z*zx*
+\vspace{-1mm}
+zz*****yx*x*yy*xy*xzxy*zy***zz*z*zz*y*z*y*z*zyxy**x*zz*z*x**zyzy*****yyyz***yx*x**y***zz*xx*yzy***zx
+\vspace{-1mm}
+*zz**xyx******yx*zzyx*zy**z******yxy*z******yxx******zxxxz*zzx**zx*z*zyzzy*y**xy*y*y***y*****z**z**
+\vspace{-1mm}
+x*x***zx*xzxzx*zxz****z***x*xx**zz***** %\pause \hspace{6cm} \small ${}$
+% \hspace{2cm} 793 vbles ($< 10^{10}$ vbles) \quad \pause         18 min ($< %10^{72}$ yrs)  
+\end{frame}
+
+
+
+
+
+
+\section{Thanks!}
+
+\begin{frame}
+
+\vspace{1.5cm} \it
+
+\hspace{2cm}\parbox{8cm}{\LARGE Thanks for staying to the\\ end of the conference! \bigskip
+
+\hspace{4cm} --- DC}
+
+\end{frame}
+
+
+
+\section{References}
+
+\begin{frame}
+\textbf{References}
+\begin{enumerate}
+
+\item D. Clark, Evolution of algebraic terms 1:  term to term operation continuity, \textit{International Journal of Algebra and Computation}, Vol. 23, No. 5 (2013) 1175-1205.
+
+\item D. Clark, B. Davey, J.Pitkethly, D.Rifqui, Flat unars:  the primal, the semi-primal and the dualisable , \textit{Algebra Universalis} Vol 63, No. 4 (2010), 303-329.
+
+\item D. Clark, M. Keijzer and L. Spector, Evolution of algebraic terms 2:  evolutionary algorithms,  in preparation. 
+
+   \item  L. Spector, D. Clark, B. Barr, J. Klein and I. Lindsay, Genetic programming for finite algebras, \emph{Genetic and Evolutionary Computation Conference} (GECCO) 2008 Proceedings, Atlanta GA (July 2008), (ACM), ISBN: 978-1-60558-130-9, 1291-1298.  [Won first place in 2008 ACM Hummie Competition.] 
+
+
+\end{enumerate}
+\end{frame}
+
+%\end{document}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+\begin{frame}
+${}$
+\end{frame}
+
+
+
+
+
+
+\section[Separating Relations]{}
+
+\begin{frame}
+\textbf{Definition.}  A binary relation $\sigma$ on $G$ is a \textbf{separating relation} if, for all $a,b,c \in G$, 
+\begin{enumerate}
+   \item $\sigma \neq \varnothing$,
+   \item $(a,b)\in \sigma$ implies $(b,a)\in \sigma$, 
+   \item $(a,a) \notin \sigma$, 
+   \item $(a,b) \in \sigma$ implies $(ac,bc)\in \sigma$ and $(ca,cb)\in \sigma$.
+\end{enumerate} 
+\medskip
+\pause
+
+For example,  if $\G$ is a non-trivial quasigroup, then $\neq$ is a separating relation on $\G$.
+\medskip
+\pause
+
+
+\textbf{Lemma.} {\sl If a groupoid has a separating relation, then it is not term continuous.}
+
+\end{frame}
+
+
+
+
+\begin{frame}
+\textbf{Test for Separating Relations.}
+\medskip
+\pause
+
+$\mathbf{Pi} := \langle\{0,1,2,3,4\}, *\rangle$ \hspace{1.3cm}  Not in any separating relation.
+\smallskip
+
+\qquad
+    \begin{tabular}{c|ccccc}
+    $*$ & 0 & 1 & 2 & 3 & 4 \\  \hline 
+     0  & 1 & 4 & 1 & 0 & 4  \\
+     1  & 2 & 1 & 0 & 3 & 0  \\
+     2  & 3 & 4 & 2 & 4 & 3  \\
+     3  & 2 & 3 & 3 & 4 & 1  \\
+     4  & 2 & 1 & 4 & 3 & 3
+    \end{tabular}
+    \hspace{1.0cm}
+    \begin{tabular}{c|ccccc}
+    $*$ & 0 & 1 & 2 & 3 & 4 \\  \hline 
+     0  &   \uc<2->x &&&&  \\
+     1  && \uc<2->x &&&  \\
+     2  &&& \uc<2->x &&  \\
+     3  &&&& \uc<2->x &\\
+     4  &&&&& \uc<2->x
+    \end{tabular}
+\bigskip
+
+
+\uc<2-> {${}$  \\
+
+${}$}
+
+\end{frame}
+
+
+
+
+
+
+\begin{frame}
+\textbf{Test for Separating Relations.}
+\medskip
+
+$\mathbf{Pi} := \langle\{0,1,2,3,4\}, *\rangle$ \hspace{1.3cm}  Not in any separating relation.
+\smallskip
+
+\qquad
+    \begin{tabular}{c|ccccc}
+    $*$ & 0 & 1 & 2 & \textcolor{red}{3} & \textcolor{red}{4} \\  \hline 
+     0  & 1 & 4 & 1 & 0 & 4  \\
+     1  & 2 & 1 & 0 & 3 & 0  \\
+     2  & 3 & 4 & 2 & 4 & 3  \\
+     3  & 2 & 3 & 3 & 4 & 1  \\
+     \textcolor{red}{4}  & 2 & 1 & 4 & \textcolor{red}{3} & \textcolor{red}{3}
+    \end{tabular}
+    \hspace{1.0cm}
+    \begin{tabular}{c|ccccc}
+    $*$ & 0 & 1 & 2 & 3 & 4 \\  \hline 
+     0  &  x &&&&  \\
+     1  && x &&&  \\
+     2  &&& x &&  \\
+     3  &&&& x &\uc<2->{\textcolor{red}{x}}\\
+     4  &&&&& x
+    \end{tabular}
+\bigskip
+
+
+\uc<2-> {${}$  \\
+
+${}$}
+
+\end{frame}
+
+
+
+
+
+\begin{frame}
+\textbf{Test for Separating Relations.}
+\medskip
+
+
+$\mathbf{Pi} := \langle\{0,1,2,3,4\}, *\rangle$ \hspace{1.3cm}  Not in any separating relation.
+\smallskip
+
+\qquad
+    \begin{tabular}{c|ccccc}
+    $*$ & 0 & 1 & 2 & 3 & 4 \\  \hline 
+     0  & 1 & 4 & 1 & 0 & 4  \\
+     1  & 2 & 1 & 0 & 3 & 0  \\
+     2  & 3 & 4 & 2 & 4 & 3  \\
+     3  & 2 & 3 & 3 & 4 & 1  \\
+     4  & 2 & 1 & 4 & 3 & 3
+    \end{tabular}
+    \hspace{1.0cm}
+    \begin{tabular}{c|ccccc}
+    $*$ & 0 & 1 & 2 & 3 & 4 \\  \hline 
+     0  &  x & \uc<3->x & \uc<2->x & \uc<3->x & \uc<2->x  \\
+     1  &   \uc<3->x & x & \uc<3->x & \uc<2->x & \uc<2->x  \\
+     2  &   \uc<2->x & \uc<3->x & x & \uc<2->x & \uc<2->x  \\
+     3  &   \uc<3->x & \uc<2->x & \uc<2->x & x & x  \\
+     4  &   \uc<2->x & \uc<2->x & \uc<2->x & x & x
+    \end{tabular}
+\bigskip
+
+
+\uc<4-> {Conclusion:  \\
+
+$\mathbf{Pi}$ has no subalgebra with a separating relation.}
+
+\end{frame}
+
+
+
+
+
+
+
+
+
+\section[Asymptotic Completeness]{}
+
+\begin{frame}
+Let $\vd \in G^k$ and let $a\in G$.  For $H\in \N$ define 
+\[
+\beta_{\vd,a}(H) := \mbox{Prob}\langle t(\vd)=a \mid t \mbox{ is a term of height } \leq H\rangle.
+\]
+\bigskip
+\pause
+
+\textbf{Definition.}  The groupoid $\G$ is \textbf{asymptoticly complete} if, for each $k\in \N$, each $\vd \in \G^k$ and each $a \in G$, the sequence $\beta_{\vd,a}$ either has constant value $0$ or is eventually bounded away from~0.
+
+
+\end{frame}
+
+
+
+
+\begin{frame}
+\textbf{Test for Asymptotic Completeness.}
+\smallskip
+\pause
+
+$\mathbf{Pi}$ distributions with $k\in \N$ and  $\vd \in Pi^k$.
+\vspace{-4mm}
+
+\begin{align*}
+ H               &&\B_{\vd,0}(H)&&\B_{\vd,1}(H)&&\B_{\vd,2}(H)&&\B_{\vd,3}(H)&&\B_{\vd,4}(H)   &&&&&\\
+1	         &&			&&			&&			&&			&&		      &&&&&\\
+2		&&			&&			&&			&&			&&		      &&&&&\\
+4		&&			&&			&&			&&			&&		      &&&&&\\
+8		&&			&&			&&			&&			&&		      &&&&&\\
+6		&&			&&			&&			&&			&&		      &&&&&\\
+32		&&			&&			&&			&&			&&		      &&&&&\\
+64		&&			&&			&&			&&			&&		      &&&&&\\
+500		&&			&&			&&			&&			&&		      &&&&&
+\end{align*}
+
+\end{frame}
+
+
+
+
+
+
+
+\begin{frame}
+\vspace{2.3mm}
+\textbf{Test for Asymptotic Completeness.}
+\vspace{1.2mm}
+
+$\mathbf{Pi}$ distributions with $k=10$ and  $\vd = (2,2,2,2,2,2,2,2,2,2)$.
+\vspace{-4mm}
+\pause
+
+\begin{align*}
+ H               &&\B_{\vd,0}(H)&&\B_{\vd,1}(H)&&\B_{\vd,2}(H)&&\B_{\vd,3}(H)&&\B_{\vd,4}(H)   &&&&&\\
+1	         &&	0		&&	0		&&	1		&&	0		&&	0	      &&&&&\\
+2		&&	0		&&	0		&&	1		&&	0		&&	0	      &&&&&\\
+4		&&	0		&&	0		&&	1		&&	0		&&	0	      &&&&&\\
+6		&&	0		&&	0		&&	1		&&	0		&&	0	      &&&&&\\
+8		&&	0		&&	0		&&	1		&&	0		&&	0	      &&&&&\\
+10		&&	0		&&	0		&&	1		&&	0		&&	0	      &&&&&\\
+16		&&	0		&&	0		&&	1		&&	0		&&	0	      &&&&&\\
+500		&&	0		&&	0		&&	1		&&	0		&&	0	      &&&&&\\
+\end{align*}
+
+\end{frame}
+
+
+
+
+
+
+\begin{frame}
+\textbf{Test for Asymptotic Completeness.}
+\smallskip
+
+$\mathbf{Pi}$ distributions with $k=10$ and  $\vd = (3,4,3,0,2,3,3,0,1,3)$.
+\vspace{-4mm}
+
+\begin{align*}
+ H               &&\B_{\vd,0}(H)&&\B_{\vd,1}(H)&&\B_{\vd,2}(H)&&\B_{\vd,3}(H)&&\B_{\vd,4}(H)   &&&&&\\
+\uncover<2->{1&&	0.2		&&	0.1		&&	0.1		&&	0.5		&&	0.1	      &&&&&\\}
+\uncover<3->{2	&& 0.127273	&& 0.127273	&& 0.145455	&& 0.254545	&& 0.345455 &&&&&\\}
+\uncover<4->{4	&& 0.098817	&& 0.182526	&& 0.088076	&& 0.368477	&& 0.262102 &&&&&\\}
+\uncover<5->{8	&& 0.103371	&& 0.195561	&& 0.091358	&& 0.365539	&& 0.244171 &&&&&\\}
+\uncover<6->{16&& 0.103372	&& 0.195275	&& 0.091609	&& 0.365434	&& 0.244311 &&&&&\\}\uncover<7->{32&& 0.103372	&& 0.195275	&& 0.091609	&& 0.365434	&& 0.244310 &&&&&\\}
+\uncover<8->{64&& 0.103372	&& 0.195275	&& 0.091609	&& 0.365434	&& 0.244310 &&&&&\\}
+\uncover<9->{500	&& 0.103372	&& 0.195275	&& 0.091609	&& 0.365434	&& 0.244310 &&&&&}
+\end{align*}
+\end{frame}
+
+
+
+\begin{frame}
+\vspace{2.3mm}
+\textbf{Test for Asymptotic Completeness.}
+\vspace{1.2mm}
+
+$\mathbf{Pi}$ distributions with $k=10$ and  $\vd = (2,2,2,2,2,2,2,2,2,2)$.
+\vspace{-4mm}
+
+\begin{align*}
+ H               &&\B_{\vd,0}(H)&&\B_{\vd,1}(H)&&\B_{\vd,2}(H)&&\B_{\vd,3}(H)&&\B_{\vd,4}(H)   &&&&&\\
+1	         &&	0		&&	0		&&	1		&&	0		&&	0	      &&&&&\\
+2		&&	0		&&	0		&&	1		&&	0		&&	0	      &&&&&\\
+4		&&	0		&&	0		&&	1		&&	0		&&	0	      &&&&&\\
+6		&&	0		&&	0		&&	1		&&	0		&&	0	      &&&&&\\
+8		&&	0		&&	0		&&	1		&&	0		&&	0	      &&&&&\\
+10		&&	0		&&	0		&&	1		&&	0		&&	0	      &&&&&\\
+16		&&	0		&&	0		&&	1		&&	0		&&	0	      &&&&&\\
+500		&&	0		&&	0		&&	1		&&	0		&&	0	      &&&&&\\
+\end{align*}
+
+\end{frame}
+
+
+
+
+
+
+
+\begin{frame}
+\vspace{2.3mm}
+\textbf{Test for Asymptotic Completeness.}
+\vspace{1.2mm}
+
+$\mathbf{Pi}$ distributions with $k=10$ and  $\vd = (2,2,2,2,2,2,4,2,2,2)$.
+\vspace{-4mm}
+
+\begin{align*}
+ H               &&\B_{\vd,0}(H)&&\B_{\vd,1}(H)&&\B_{\vd,2}(H)&&\B_{\vd,3}(H)&&\B_{\vd,4}(H)   &&&&&\\
+\uncover<2->{1	   && 0.0		&&	0.0		&& 0.9		&&	0.0		&&	0.1	      &&&&&\\}
+\uncover<3->{2   && 0.000000	&& 0.000000	&& 0.810001	&&    0.099999  &&	0.090000&&&&&\\}	
+\uncover<4->{4   && 0.007380	&& 0.029583	&& 0.430369	&&    0.283600  &&	0.248968&&&&&\\}
+\uncover<5->{8   && 0.095683	&& 0.211801	&& 0.070920	&&    0.382629	&&    0.238968&&&&&\\}
+\uncover<6->{16 && 0.103370	&& 0.195268	&& 0.091610	&&    0.365436	&&    0.244316&&&&&\\}
+\uncover<7->{32 && 0.103372	&& 0.195275	&& 0.091609	&&    0.365434	&&    0.244310&&&&&\\}
+\uncover<8->{64 && 0.103372	&& 0.195275	&& 0.091609	&&    0.365434	&&    0.244310&&&&&\\}
+\uncover<9->{500&&0.103372	&& 0.195275	&& 0.091609	&&    0.365434	&&    0.244310&&&&&}
+\end{align*}
+
+\uncover<10->{Experimental evidence that $\mathbf{Pi}$ is asymptoticly complete.}
+
+\end{frame}
+
+
+\end{document}
+
+
+
+
+
